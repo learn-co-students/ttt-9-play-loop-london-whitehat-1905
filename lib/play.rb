@@ -1,10 +1,10 @@
 # Helper Methods
 def display_board(board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
-  puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
-  puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+  to_cell = Proc.new {|row| row.map {|cell| " #{cell} "}.join("|")}
+  board.each_slice(3)
+  .map(&to_cell)
+  .zip(Array.new(2).fill("-" * 11))
+  .each {|row| puts row}
 end
 
 def input_to_index(user_input)
@@ -36,3 +36,9 @@ def turn(board)
 end
 
 # Define your play method below
+def play(board)
+  count_plays = Proc.new {|cell| cell == "O" || cell == "X"}
+  while board.filter(&count_plays).length < 9 do
+    turn(board)
+  end
+end
