@@ -1,4 +1,5 @@
 # Helper Methods
+
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts "-----------"
@@ -31,6 +32,12 @@ def turn(board)
     move(board, index)
     display_board(board)
   else
+    turn(board)
+  end
+end
+
+def play(board)
+  for i in (0...9)
     turn(board)
   end
 end
